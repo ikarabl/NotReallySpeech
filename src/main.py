@@ -19,7 +19,7 @@ TEST_WITH_TITLES_CONCEPTS = "concepts_with_titles_test.txt"
 def _get_data_from_cmd():
     parser = argparse.ArgumentParser(description='Train sequence translation for wikification')
     parser.add_argument('-d', type=str, dest='directory', metavar='<directory>',
-                        required=False, help='directory for results')
+                        required=False, help='directory for input corpus')
     parser.add_argument('-i', type=str, dest='input_file', metavar='<single input file>',
                         required=False, help='single input file')
     parser.add_argument('-q', type=str, dest='quotes_csvfile', metavar='<quotes csv file>',
