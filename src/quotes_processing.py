@@ -1,13 +1,14 @@
 import re
+from src.step import PipelineStep
 
-
-class QuotesAdapter:
+class QuotesAdapter(PipelineStep):
     QUOTES_OPEN = '«'
     QUOTES_CLOSE = '»'
     SPECIFIC_QUOTES_OPEN = '„“‘„'
     SPECIFIC_QUOTES_CLOSE = '“”’”'
 
     def __init__(self, rule_df):
+        super().__init__()
         self.__rule_df = rule_df
 
     def annotate(self, text):
