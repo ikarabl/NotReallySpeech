@@ -1,5 +1,6 @@
 from src.quotes_processing import QuotesAdapter
 from src.speech_detector import SpeechDetector
+from src.character_detector import CharecterDetector
 from src.pipeline import Pipeline
 from pandas import DataFrame
 import argparse
@@ -90,7 +91,8 @@ def main():
 
         quotes_adapter = QuotesAdapter(quotes_rules)
         speech_detector = SpeechDetector(speech_rules)
-        pipeline = Pipeline(quotes_adapter, speech_detector)
+        character_detector = CharecterDetector()
+        pipeline = Pipeline(quotes_adapter, speech_detector, character_detector)
 
         text = pipeline.apply_to(text)
         _write_to_file(output_path, directory_path, textpath, text)

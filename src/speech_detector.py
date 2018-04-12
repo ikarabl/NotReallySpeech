@@ -1,8 +1,10 @@
 import re
+from src.step import PipelineStep
 
 
-class SpeechDetector:
+class SpeechDetector(PipelineStep):
     def __init__(self, rule_df):
+        super().__init__()
         self.rule_df = rule_df
 
     def annotate(self, text):
