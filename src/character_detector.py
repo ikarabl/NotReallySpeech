@@ -11,10 +11,12 @@ class CharacterDetector(PipelineStep):
     def annotate(self, text):
         said_, author_ = self.__get_speech_from_text(text)
         for i in author_:
-            nes = self.t.named_entities(i, language='ru')
-            for j in list(nes):
-                if j != []:
-                    print(j, i)
+            s = next(self.t.syntax_detection(i))
+            print([i for i in zip(s.tokens, s.labels, s.spans)])
+            # nes = self.t.named_entities(i, language='ru')
+            # for j in list(nes):
+            #     if j != []:
+            #         print(j, i)
         return text
 
     def __get_speech_from_text(self, text):
