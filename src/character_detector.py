@@ -3,7 +3,7 @@ import texterra
 import re
 
 
-class CharecterDetector(PipelineStep):
+class CharacterDetector(PipelineStep):
     def __init__(self):
         super().__init__()
         self.t = texterra.API("c41d9b98960e6f6bdfb3452f6b174e5a6554f992")

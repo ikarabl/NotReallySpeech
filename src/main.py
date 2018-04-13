@@ -1,6 +1,6 @@
 from src.quotes_processing import QuotesAdapter
 from src.speech_detector import SpeechDetector
-from src.character_detector import CharecterDetector
+from src.character_detector import CharacterDetector
 from src.pipeline import Pipeline
 from pandas import DataFrame
 import argparse
@@ -79,6 +79,14 @@ def _write_to_file(path, dirpath, name, data):
 def main():
     directory_path, text_path, quotes_path, speech_path, output_path = _get_data_from_cmd()
 
+    quotes_rules = _read_csv(quotes_path, ';')
+    speech_rules = _read_csv(speech_path, ';')
+
+    quotes_adapter = QuotesAdapter(quotes_rules)
+    speech_detector = SpeechDetector(speech_rules)
+    character_detector = CharacterDetector()
+    pipeline = Pipeline(quotes_adapter, speech_detector, character_detector)
+
     if directory_path == None:
         list_of_textfiles = [text_path]
     else:
@@ -86,17 +94,8 @@ def main():
 
     for textpath in list_of_textfiles:
         text = _read_file(textpath)
-        quotes_rules = _read_csv(quotes_path, ';')
-        speech_rules = _read_csv(speech_path, ';')
-
-        quotes_adapter = QuotesAdapter(quotes_rules)
-        speech_detector = SpeechDetector(speech_rules)
-        character_detector = CharecterDetector()
-        pipeline = Pipeline(quotes_adapter, speech_detector, character_detector)
-
         text = pipeline.apply_to(text)
         _write_to_file(output_path, directory_path, textpath, text)
-
 
 if __name__ == '__main__':
     main()
